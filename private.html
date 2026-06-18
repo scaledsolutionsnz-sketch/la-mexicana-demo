@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Feedback | La Mexicana, Darfield</title>
+<meta name="description" content="Share your feedback with La Mexicana, Darfield. We read every message and want to make it right.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav scrolled">
+  <a href="index.html" class="brand"><span class="dot">¡</span>La Mexicana</a>
+  <nav class="nav-links">
+    <a href="index.html#menu">Menu</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact">Find Us</a>
+    <a href="tel:+6433179443" class="btn btn-primary">Call 03 317 9443</a>
+  </nav>
+  <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</header>
+
+<main class="review-stage">
+  <div class="review-box">
+    <div id="formView">
+      <div class="dot-lg">¡</div>
+      <h1>Tell us more</h1>
+      <p>Thanks for the honesty — we'd rather hear it straight so we can put it right. This goes to the owner directly.</p>
+      <form id="fbForm" action="https://formsubmit.co/challengedarfield@gmail.com" method="POST" style="text-align:left">
+        <input type="hidden" name="_subject" value="Private feedback from La Mexicana website">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@email.com" required>
+        </div>
+        <div class="field">
+          <label for="rating">Your rating</label>
+          <input type="text" id="rating" name="rating" readonly>
+        </div>
+        <div class="field">
+          <label for="feedback">What could we have done better?</label>
+          <textarea id="feedback" name="feedback" placeholder="Tell us what happened and how we can improve" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%">Send feedback</button>
+      </form>
+      <p style="margin-top:1.4rem"><a href="index.html" class="back-link">← Back to home</a></p>
+    </div>
+
+    <div class="success-msg" id="successView">
+      <div class="check">✓</div>
+      <h1>Thank you</h1>
+      <p>We really appreciate you taking the time. Your feedback has been sent straight to the owner and we'll do our best to make it right.</p>
+      <a href="index.html" class="btn btn-dark">Back to home</a>
+    </div>
+  </div>
+</main>
+
+<script>
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var rating = params.get('rating');
+  var ratingField = document.getElementById('rating');
+  if (rating && /^[1-5]$/.test(rating)) {
+    ratingField.value = rating + " out of 5 ★";
+  } else {
+    ratingField.value = "Not rated";
+  }
+
+  var form = document.getElementById('fbForm');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var data = new FormData(form);
+    fetch(form.action, { method:'POST', body:data, headers:{ 'Accept':'application/json' } })
+      .then(function(){ showSuccess(); })
+      .catch(function(){ showSuccess(); });
+  });
+  function showSuccess(){
+    document.getElementById('formView').style.display = 'none';
+    document.getElementById('successView').classList.add('show');
+    window.scrollTo({ top:0, behavior:'smooth' });
+  }
+})();
+</script>
+<script src="main.js"></script>
+</body>
+</html>

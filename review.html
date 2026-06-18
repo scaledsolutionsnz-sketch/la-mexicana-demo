@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leave a Review | La Mexicana, Darfield</title>
+<meta name="description" content="Tell us how we did at La Mexicana, Darfield. Rate your experience and leave a review.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav scrolled">
+  <a href="index.html" class="brand"><span class="dot">¡</span>La Mexicana</a>
+  <nav class="nav-links">
+    <a href="index.html#menu">Menu</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact">Find Us</a>
+    <a href="tel:+6433179443" class="btn btn-primary">Call 03 317 9443</a>
+  </nav>
+  <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</header>
+
+<main class="review-stage">
+  <div class="review-box">
+    <div class="dot-lg">¡</div>
+    <h1>How was your visit?</h1>
+    <p>Tap a star to rate your experience at La Mexicana.</p>
+    <div class="star-pick" id="stars">
+      <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span>
+    </div>
+    <p class="review-hint">Your feedback helps us keep the food and service spot on.</p>
+    <p style="margin-top:1.6rem"><a href="index.html" class="back-link">← Back to home</a></p>
+  </div>
+</main>
+
+<script>
+(function(){
+  var GOOGLE_REVIEW_URL = "https://g.page/r/PLACEHOLDER";
+  var stars = document.querySelectorAll('#stars span');
+  function paint(n){ stars.forEach(function(s,i){ s.classList.toggle('lit', i < n); }); }
+  stars.forEach(function(s){
+    s.addEventListener('mouseenter', function(){ paint(+s.dataset.v); });
+    s.addEventListener('mouseleave', function(){ paint(0); });
+    s.addEventListener('click', function(){
+      var v = +s.dataset.v;
+      paint(v);
+      setTimeout(function(){
+        if (v >= 4) { window.location.href = GOOGLE_REVIEW_URL; }
+        else { window.location.href = "private.html?rating=" + v; }
+      }, 220);
+    });
+  });
+})();
+</script>
+<script src="main.js"></script>
+</body>
+</html>
